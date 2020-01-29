@@ -5,7 +5,7 @@
                 <v-col>
                     <v-card>
                         <v-card-title>
-                            <span class="headline">Caratula</span>
+                            <span class="headline">CARATULA</span>
                         </v-card-title>
                         <v-card-text>
                             <div class="toolbarEditor"></div>
