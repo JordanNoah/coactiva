@@ -5,10 +5,9 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="title">
-                Jordan Josue Ubilla Mendoza
+                {{this.$store.state.userData.nombres +" "+ this.$store.state.userData.apellidos}}
               </v-list-item-title>
               <v-list-item-subtitle>
-                subtext
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -51,23 +50,29 @@
       <v-col>
         <v-app-bar dark color="#00365F">
           <v-app-bar-nav-icon @click.stop="menuDrawer = !menuDrawer"></v-app-bar-nav-icon>
-          <v-img src="http://derconsultec.com/img/derconsult-logo-movil-white.png" class="mb-2" contain aspect-ratio="2" height="50%" position="end left"></v-img>
+          <v-img src="@/assets/derconsult.png" class="mb-2" contain aspect-ratio="2" height="50%" position="end left"></v-img>
           <v-spacer></v-spacer>
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn dark depressed fab v-on="on">
-                JU
+                <v-avatar>
+                  <img v-bind:src="$store.state.userData.image" />
+                </v-avatar>
               </v-btn>
             </template>
             <v-list>
-              <router-link to="perfil">
+              <router-link :to="{ name: 'perfil'}">
                 <v-list-item>
-                  <v-list-item-title>Mi cuenta</v-list-item-title>
+                  <v-list-item-title>
+                    <i class="fas fa-user-circle"></i>  Mi perfil
+                  </v-list-item-title>
                 </v-list-item>
               </router-link>
               <router-link to="/login">
-                <v-list-item>
-                  <v-list-item-title>Cerrar Session</v-list-item-title>
+                <v-list-item @click="cleanSesion">
+                  <v-list-item-title>
+                    <i class="fas fa-sign-out-alt"></i>  Cerrar session
+                  </v-list-item-title>
                 </v-list-item>
               </router-link>
             </v-list>
@@ -80,12 +85,20 @@
 </template>
 
 <script>
+import {mixins} from '@/store/global'
 export default {
   data(){
     return{
       menuDrawer:false
     }
-  }  
+  },
+  methods: {
+    cleanSesion(){
+      localStorage.removeItem('token')
+      this.$store.commit('cleanAll')
+    }
+  },
+  mixins:[mixins]
 }
 </script>
 <style>

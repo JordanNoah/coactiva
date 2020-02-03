@@ -33,8 +33,8 @@
                     + Añadir
                 </v-btn>
             </v-col>
-            <v-col>
-                <v-card>
+            <v-col cols="12">
+                <v-card outlined>
                     <v-card-title>
                         <v-text-field v-model="search" append-icon="fab fa-searchengin" label="Buscar" single-line hide-details></v-text-field>
                     </v-card-title>

@@ -12,7 +12,7 @@
                                 <template v-slot:activator="{ on }">
                                     <v-btn color="primary" outlined dark class="mb-2" v-on="on">+ Nuevo Tramite</v-btn>
                                 </template>
-                                <v-card>
+                                <v-card outlined>
                                     <v-card-title>
                                         <span class="headline">Añadir</span>
                                     </v-card-title>
@@ -113,7 +113,7 @@ export default {
             return `${day}/${month}/${year}`
         },
         guardar(){
-            const params= new URLSearchParams
+            const params = new URLSearchParams
             params.append('tituloCredit',this.tituloCredit)
             params.append('computedDateFormatted',this.computedDateFormatted)
             params.append('razonSocial',this.razonSocial)
