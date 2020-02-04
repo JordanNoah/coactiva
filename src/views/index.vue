@@ -29,7 +29,7 @@
                   <v-list-item-content>
                     <v-list-item-title>
                       <i class="fas fa-copy"></i>
-                      Tramites
+                      Coactivados
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>

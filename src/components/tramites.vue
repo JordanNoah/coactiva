@@ -5,12 +5,12 @@
                 <v-data-table :headers="headers" :items="list" sort-by="calories" class="elevation-1">
                     <template v-slot:top>
                         <v-toolbar flat color="white">
-                            <v-toolbar-title>Tramites</v-toolbar-title>
+                            <v-toolbar-title>Coactivados</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
                             <v-dialog v-model="dialog" max-width="700px">
                                 <template v-slot:activator="{ on }">
-                                    <v-btn color="primary" outlined dark class="mb-2" v-on="on">+ Nuevo Tramite</v-btn>
+                                    <v-btn color="primary" outlined dark class="mb-2" v-on="on" @click="dialog!=dialog">+ Nuevo Coactivado</v-btn>
                                 </template>
                                 <v-card outlined>
                                     <v-card-title>
@@ -56,7 +56,7 @@
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text>Cancel</v-btn>
+                                        <v-btn color="blue darken-1" text @click="dialog= !dialog">Cancel</v-btn>
                                         <v-btn color="blue darken-1" text @click="guardar">Save</v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -80,10 +80,10 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            headers:[{text:"Nombres",value:"nombres"},{text:"Apellidos",value:"apellidos"},{text:"Cedula",value:"identificacion"},{text:"Opciones",value:"action",sortable:false}],
+            headers:[{text:"Titulo de credito",value:"tituloCredit"},{text:"Fecha",value:"computedDateFormatted"},{text:"Razon Social",value:"razonSocial"},{text:"Abogado/Secretario",value:"secreAboga",sortable:false}],
             list:[],
             abogados:[],
-            dialog:true,
+            dialog:false,
             date: new Date().toISOString().substr(0, 10),
             menu2:'',
             ///informacion a enviar 

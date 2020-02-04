@@ -1,54 +1,32 @@
 <template>
     <v-content>
+        <!---->
+            <v-snackbar top :color="snackbarColor" v-model="snackbarStatus">{{ snackbarText }}<v-btn dark text @click="snackbarStatus = false"> Cerrar </v-btn></v-snackbar>
+        <!---->
         <v-container>
             <v-row>
                 <v-col>
                     <v-card>
                         <v-card-title>
-                            <span class="headline">CARATULA</span>
+                            <v-tabs>
+                                <v-tab @click="pestana=1">REQUERIMIENTO DE PAGO VOLUNTARIO</v-tab>
+                                <v-tab @click="pestana=2">AUTO DE PAGO</v-tab>
+                                <v-tab @click="pestana=3">OFICIO</v-tab>
+                            </v-tabs>
                         </v-card-title>
                         <v-card-text>
-                            <div class="toolbarEditor"></div>
-                            <ckeditor :editor="editor" v-model="oficio" :config="editorConfig" @ready="onReady"></ckeditor>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">REQUERIMIENTO DE PAGO VOLUNTARIO</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <div class="toolbarEditor2"></div>
-                            <ckeditor :editor="editor" v-model="rqpagvol" :config="editorConfig" @ready="onReady2"></ckeditor>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">INSTITUTO ECUATORIANO DE SEGURIDAD SOCIAL</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <div class="toolbarEditor3"></div>
-                            <ckeditor :editor="editor" v-model="insEcu" :config="editorConfig" @ready="onReady3"></ckeditor>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">OFICIO</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <div class="toolbarEditor4"></div>
-                            <ckeditor :editor="editor" v-model="oficio" :config="editorConfig" @ready="onReady4"></ckeditor>
+                            <div v-show="pestana==1">
+                                <div class="toolbarEditor2"></div>
+                                <ckeditor :editor="editor" v-model="rqpagvol" @ready="onReady2"></ckeditor>
+                            </div>
+                            <div v-show="pestana==2">
+                                <div class="toolbarEditor3"></div>
+                                <ckeditor :editor="editor" v-model="insEcu" @ready="onReady3"></ckeditor>
+                            </div>
+                            <div v-show="pestana==3">
+                                <div class="toolbarEditor4"></div>
+                                <ckeditor :editor="editor" v-model="oficio" @ready="onReady4"></ckeditor>
+                            </div>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -70,24 +48,20 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            caratula:'',
             rqpagvol:'',
             insEcu:'',
             oficio:'',
             snackbarText:'',
+            snackbarStatus:false,
+            snackbarColor:'',
             editor: DecoupledEditor,
-            editorConfig: {
-			}
+            pestana:1
         }
     },
     mounted: function(){
         this.traerConfig()
     },
     methods:{
-        onReady( editor )  {
-            var toolbar = document.getElementsByClassName("toolbarEditor")
-            toolbar[0].appendChild( editor.ui.view.toolbar.element )
-        },
         onReady2( editor )  {
             var toolbar = document.getElementsByClassName("toolbarEditor2")
             toolbar[0].appendChild( editor.ui.view.toolbar.element )
@@ -105,7 +79,6 @@ export default {
                 url:"http://localhost/coactiva/metodos/config/general.php"
             }).then((res)=>{
                 if(res.data!="0"){
-                    this.caratula=res.data[0]["caratula"]
                     this.rqpagvol=res.data[0]["rqpagvol"]
                     this.insEcu=res.data[0]["insEcu"]
                     this.oficio=res.data[0]["oficio"]
@@ -124,7 +97,14 @@ export default {
                 url:"http://localhost/coactiva/metodos/config/changeConfig.php",
                 data:params
             }).then((res) => {
-                this.oficio = res.data
+                if(res.data=="1"){
+                    this.snackbarColor = "success"
+                    this.snackbarText = "Guardado Exitoso!!!"
+                    this.snackbarStatus = true
+                }else{
+                    this.snackbarText = "Contacte con RAPH3"
+                    this.snackbarStatus = true
+                }
             })
         }
     }

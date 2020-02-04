@@ -16,7 +16,7 @@ export default {
       var token = localStorage.getItem('token')
       if(token==null){
         if(this.$route.name!='login'){
-          this.$router.push('login')
+          this.$router.push({name : 'login'})
         }        
       }else{
         if(this.$route.name=='login' || this.$route.name==null){
