@@ -40,8 +40,8 @@
                     </v-card-title>
                     <v-data-table :headers="headers" :items="list">
                         <template v-slot:item.action="{ item }">
-                            <v-btn outlined color="primary" small class="mr-2" @click="editItem(item)"><i class="fas fa-pencil-alt"></i></v-btn>
-                            <v-btn outlined color="error" small @click="deleteItem(item)"><i class="far fa-trash-alt"></i></v-btn>
+                            <v-btn text color="indigo" small class="mr-2" @click="editItem(item)"><i class="fas fa-pencil-alt"></i></v-btn>
+                            <v-btn text color="error" small @click="deleteItem(item)"><i class="far fa-trash-alt"></i></v-btn>
                         </template>
                     </v-data-table>
                 </v-card>

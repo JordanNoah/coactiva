@@ -15,7 +15,7 @@
           <v-list>
             <v-list-item-group>
               <router-link to="abogados">
-                <v-list-item :to="{ name: 'abogados'}">
+                <v-list-item :to="{ name: 'abogados'}" :class="($vuetify.theme.dark==false) ? 'black--text' : 'white--text'">
                   <v-list-item-content>
                     <v-list-item-title>
                       <i class="fas fa-user-tie mx-2"></i>
@@ -25,7 +25,7 @@
                 </v-list-item>
               </router-link>
               <router-link to="tramites">
-                <v-list-item :to="{ name: 'tramites'}">
+                <v-list-item :to="{ name: 'tramites'}" class="white--text">
                   <v-list-item-content>
                     <v-list-item-title>
                       <i class="fas fa-copy"></i>
@@ -35,7 +35,7 @@
                 </v-list-item>
               </router-link>
               <router-link to="configuracion">
-                <v-list-item :to="{ name: 'configuracion'}">
+                <v-list-item :to="{ name: 'configuracion'}" class="white--text">
                   <v-list-item-content>
                     <v-list-item-title>
                       <i class="fas fa-cogs mx-2"></i>
@@ -48,10 +48,13 @@
           </v-list>
         </v-navigation-drawer>
       <v-col>
-        <v-app-bar dark color="#00365F">
-          <v-app-bar-nav-icon @click.stop="menuDrawer = !menuDrawer"></v-app-bar-nav-icon>
+        <v-app-bar color="primary">
+          <v-app-bar-nav-icon @click.stop="menuDrawer = !menuDrawer" color="#fff"></v-app-bar-nav-icon>
           <v-img src="@/assets/derconsult.png" class="mb-2" contain aspect-ratio="2" height="50%" position="end left"></v-img>
           <v-spacer></v-spacer>
+          <v-btn icon text small class="mr-2" @click.stop="changeMode" @click="$vuetify.theme.dark=!$vuetify.theme.dark">
+            <i class="fas fa-moon" :class="this.$store.state.nightMode"></i>
+          </v-btn>
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn dark depressed fab v-on="on">
@@ -69,7 +72,7 @@
                 </v-list-item>
               </router-link>
               <router-link to="/login">
-                <v-list-item @click="cleanSesion">
+                <v-list-item @click.stop="cleanSesion" @click="$vuetify.theme.dark=false">
                   <v-list-item-title>
                     <i class="fas fa-sign-out-alt"></i>  Cerrar session
                   </v-list-item-title>
@@ -96,6 +99,9 @@ export default {
     cleanSesion(){
       localStorage.removeItem('token')
       this.$store.commit('cleanAll')
+    },
+    changeMode(){
+      this.$store.commit('changeMode')
     }
   },
   mixins:[mixins]

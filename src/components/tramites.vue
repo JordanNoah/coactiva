@@ -4,13 +4,13 @@
             <v-col cols="12">
                 <v-data-table :headers="headers" :items="list" sort-by="calories" class="elevation-1">
                     <template v-slot:top>
-                        <v-toolbar flat color="white">
+                        <v-toolbar flat>
                             <v-toolbar-title>Coactivados</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="dialog" max-width="700px">
+                            <v-dialog v-model="dialog" max-width="1000px">
                                 <template v-slot:activator="{ on }">
-                                    <v-btn color="primary" outlined dark class="mb-2" v-on="on" @click="dialog!=dialog">+ Nuevo Coactivado</v-btn>
+                                    <v-btn color="indigo" depressed class="mb-2 white--text" v-on="on" @click="dialog!=dialog">+ Nuevo Coactivado</v-btn>
                                 </template>
                                 <v-card outlined>
                                     <v-card-title>
@@ -19,10 +19,10 @@
                                     <v-card-text>
                                         <v-container>
                                             <v-row>
-                                                <v-col cols="6">
+                                                <v-col cols="3">
                                                     <v-text-field v-model="tituloCredit" label="No. de titulo de crédito"></v-text-field>
                                                 </v-col>
-                                                <v-col cols="6">
+                                                <v-col cols="3">
                                                     <v-menu v-model="menu2" :close-on-content-click="false" :nudge-top="0" transition="scale-transition" min-width="290px">
                                                         <template v-slot:activator="{ on }">
                                                             <v-text-field v-model="computedDateFormatted" label="Fecha de emisión" readonly v-on="on"></v-text-field>
@@ -33,16 +33,16 @@
                                                 <v-col cols="6">
                                                     <v-text-field v-model="razonSocial" label="Razón social"></v-text-field>
                                                 </v-col>
-                                                <v-col cols="6">
+                                                <v-col cols="3">
                                                     <v-select v-model="secreAboga" label="Secretario/Abogado" :items="abogados" item-text="nombres" item-value="id"></v-select>
                                                 </v-col>
-                                                <v-col cols="5">
+                                                <v-col cols="4">
                                                     <v-text-field v-model="regCont" label="Registro único de contribuyentes"></v-text-field>
                                                 </v-col>
-                                                <v-col cols="4">
+                                                <v-col cols="3">
                                                     <v-text-field v-model="cedRepre" label="Cedula del representante"></v-text-field>
                                                 </v-col>
-                                                <v-col cols="3">
+                                                <v-col cols="2">
                                                     <v-text-field v-model="cantTot" label="Cantidad total"></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12">
